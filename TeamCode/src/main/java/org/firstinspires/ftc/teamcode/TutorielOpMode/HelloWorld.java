@@ -1,0 +1,26 @@
+package org.firstinspires.ftc.teamcode.TutorielOpMode;
+
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+
+@Disabled // Ici pour activer programme
+@Autonomous
+public class HelloWorld extends OpMode {
+    @Override
+    public void init() {
+        telemetry.addData("Hello","Dude");
+    }
+
+    @Override
+    public void loop() {
+
+    }
+
+    // Single Line Comment
+    /*
+    1. Change Hello World for Hello Sebastien ok
+    2. Run the program in the Autonomous section of the DS ok
+     */
+}
