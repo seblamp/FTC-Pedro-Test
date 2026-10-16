@@ -63,6 +63,8 @@ public class MecanumOpModePinpointExemple extends OpMode {
         }
         previousBackButton = gamepad1.back; //enregistre l'état du bouton back
 
+
+
         if (fieldOriented) {
             drive.driveFieldRelative(forward, strafe, rotate);  // Méthode à utiliser si Field Oriented
         } else {
