@@ -5,7 +5,6 @@ import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.hardware.IMU;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.Pose2D;
@@ -18,9 +17,8 @@ public class MecanumDrivePinpointExemple {
     -----------------------------------VARIABLES -----------------------------------------------*/
 
     private DcMotor frontLeft, backLeft, frontRight, backRight; // Déclaration des moteurs
-    private IMU imu;    //Déclaration du Gyro du ControlHub
 
-    private GoBildaPinpointDriver pinpoint;
+    private GoBildaPinpointDriver pinpoint; // Déclaration du pinpoint de GoBilda
     private double targetHeading;    //Variable pour la correction en ligne droite
     private boolean holdingHeading = false;  //Variable pour vérifier si on était déjà en train de rouler en ligne droite avec un headging
     private static final double DRIVE_KP = 0.03; // Variable qui gère l'ampleur de la correction en ligne droite
@@ -55,7 +53,7 @@ public class MecanumDrivePinpointExemple {
         pinpoint = hwMap.get(GoBildaPinpointDriver.class, "pinpoint");
         configurePinpoint();
 
-        pinpoint.setPosition(new Pose2D(DistanceUnit.CM, 0, 0, AngleUnit.DEGREES, 0));
+        //pinpoint.setPosition(new Pose2D(DistanceUnit.CM, 0, 0, AngleUnit.DEGREES, 0));
 
     }
 
@@ -69,7 +67,7 @@ public class MecanumDrivePinpointExemple {
          *  The Y pod offset refers to how far forwards from the tracking point the Y (strafe) odometry pod is.
          *  Forward of center is a positive number, backwards is a negative number.3+
          */
-        pinpoint.setOffsets(-2.5, -12.8, DistanceUnit.CM); //these are tuned for 3110-0002-0001 Product Insight #1
+        pinpoint.setOffsets(2.5, 12.8, DistanceUnit.CM); //these are tuned for 3110-0002-0001 Product Insight #1
 
         /*
          * Set the kind of pods used by your robot. If you're using goBILDA odometry pods, select either
@@ -86,7 +84,7 @@ public class MecanumDrivePinpointExemple {
          * you move the robot to the left.
          */
         pinpoint.setEncoderDirections(GoBildaPinpointDriver.EncoderDirection.FORWARD,
-                GoBildaPinpointDriver.EncoderDirection.FORWARD);
+                GoBildaPinpointDriver.EncoderDirection.REVERSED);
 
         /*
          * Before running the robot, recalibrate the IMU. This needs to happen when the robot is stationary
@@ -129,7 +127,7 @@ public class MecanumDrivePinpointExemple {
         double theta = Math.atan2(forward, strafe);  //On transforme les valeurs en coordonnées polaires avec de la trigonométrie
         double r = Math.hypot(strafe,forward);
 
-        theta = AngleUnit.normalizeRadians(theta - imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS));
+        theta = AngleUnit.normalizeRadians(theta - pinpoint.getHeading(AngleUnit.RADIANS));
 
         double newForward = r * Math.sin(theta);  // retransformation en coordonnées cartésiennes
         double newStrafe = r * Math.cos(theta);
@@ -139,27 +137,32 @@ public class MecanumDrivePinpointExemple {
     }
 
     /*---------------------------------------------------------------------------------------
-    ------------------------------------MÉTHODES DU IMU --------------------------------------*/
+    ------------------------------------MÉTHODES DU PINPOINT et ROUES D'ODOMÉTRIE--------------------------------------*/
 
-    public double getHeading() {         //Méthode pour connaître le heading (le Yaw) actuel du robot
+    public void updatePinpoint() {    //Pour mettre le pinpoint à jour dans l'OpMode
+        pinpoint.update();
+    }
+
+    public double getHeading() {         //Méthode pour connaître le heading (le Yaw) en DEGRÉS actuel du robot
         return pinpoint.getHeading(AngleUnit.DEGREES);
     }
+
+    public double getX() {           //Méthode pour connaître la position en X des roues GoBilda
+        return pinpoint.getPosX(DistanceUnit.CM);
+    }
+
+    public double getY() {              //Méthode pour connaître la position en Y des roues GoBilda
+        return pinpoint.getPosY(DistanceUnit.CM);
+    }
+    public double getHeadingRadians() {   //Méthode pour connaître le heading (le Yaw) en RADIANS actuel du robot
+        return pinpoint.getHeading(AngleUnit.RADIANS);
+    }
     public void resetYaw() {
+        pinpoint.update();
         double posX = pinpoint.getPosX(DistanceUnit.CM);
         double posY = pinpoint.getPosY(DistanceUnit.CM);
         pinpoint.setPosition(new Pose2D(DistanceUnit.CM, posX, posY, AngleUnit.DEGREES, 0));
         /*pinpoint.recalibrateIMU();*/}  //Méthode pour remettre l'orientation du robot à zéro
-
-    public void resetIMU() {    // Méthode pour réinitialiser le IMU et reset le Yaw
-
-        RevHubOrientationOnRobot RevOrientation = new RevHubOrientationOnRobot(
-                RevHubOrientationOnRobot.LogoFacingDirection.RIGHT,
-                RevHubOrientationOnRobot.UsbFacingDirection.UP
-        );
-
-        imu.initialize(new IMU.Parameters(RevOrientation));
-        imu.resetYaw();
-    }
 
 
     /*----------------------------------------------------------------------------------------------
@@ -180,10 +183,6 @@ public class MecanumDrivePinpointExemple {
     }
     public double headingCorrection() {   //Méthode qui transforme l'erreur de heading en différence de power que les moteurs vont avoir
         return headingError() * DRIVE_KP;  // 3 degrés d'erreur * 0.02 = 0.06 de power de plus ou moins pour le moteur
-    }
-
-    public double BotHeading(AngleUnit angleUnit) {   //méthode pour avoir le heading du robot de -180 à 180 ou -pie à pie
-        return imu.getRobotYawPitchRollAngles().getYaw(angleUnit);
     }
 
 }
