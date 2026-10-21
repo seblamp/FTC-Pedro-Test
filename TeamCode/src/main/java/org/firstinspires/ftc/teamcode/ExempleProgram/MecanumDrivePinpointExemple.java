@@ -67,7 +67,7 @@ public class MecanumDrivePinpointExemple {
          *  The Y pod offset refers to how far forwards from the tracking point the Y (strafe) odometry pod is.
          *  Forward of center is a positive number, backwards is a negative number.3+
          */
-        pinpoint.setOffsets(2.5, 12.8, DistanceUnit.CM); //these are tuned for 3110-0002-0001 Product Insight #1
+        pinpoint.setOffsets(7.6, 12.8, DistanceUnit.CM); //these are tuned for 3110-0002-0001 Product Insight #1
 
         /*
          * Set the kind of pods used by your robot. If you're using goBILDA odometry pods, select either

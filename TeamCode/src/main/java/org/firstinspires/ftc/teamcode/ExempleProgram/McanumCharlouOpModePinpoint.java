@@ -1,11 +1,12 @@
 package org.firstinspires.ftc.teamcode.ExempleProgram;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import org.firstinspires.ftc.robotcore.external.navigation.Pose2D;
 import com.qualcomm.hardware.gobilda.GoBildaPinpointDriver;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-@TeleOp
+@Disabled
 public class McanumCharlouOpModePinpoint extends OpMode {
 
     baseMecanumPinpointCharlou drive = new baseMecanumPinpointCharlou();
