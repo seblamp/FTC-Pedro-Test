@@ -13,11 +13,16 @@ public class MoteurJoystickOpMode extends OpMode {
     public void init() {
         motor = hardwareMap.get(DcMotor.class, "motor");
     }
-
+    //Le nom doit être identique à la configuration du DriverHub
     @Override
+
     public void loop() {
+
         double speed = gamepad1.left_stick_y;
         motor.setPower(speed);
+
+        /*double speed = gamepad1.right_stick_y;
+        motor.setPower(speed);*/
     }
 }
 

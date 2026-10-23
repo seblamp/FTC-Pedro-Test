@@ -18,6 +18,7 @@ public class DcMotorPractice extends OpMode {
     public void init() {
         bench.init(hardwareMap);
     }
+
     @Override
     public void loop() {
         double motorSpeed = gamepad1.left_stick_y;

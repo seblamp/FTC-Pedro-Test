@@ -1,10 +1,7 @@
-package org.firstinspires.ftc.teamcode.ExempleProgram;
+package org.firstinspires.ftc.teamcode.ExempleProgram.Mecanum;
 
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
-import org.firstinspires.ftc.robotcore.external.navigation.Pose2D;
-import com.qualcomm.hardware.gobilda.GoBildaPinpointDriver;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 @Disabled
 public class McanumCharlouOpModePinpoint extends OpMode {

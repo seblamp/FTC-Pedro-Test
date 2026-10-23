@@ -1,7 +1,6 @@
-package org.firstinspires.ftc.teamcode.ExempleProgram;
+package org.firstinspires.ftc.teamcode.ExempleProgram.Mecanum;
 
 import com.qualcomm.hardware.gobilda.GoBildaPinpointDriver;
-import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
