@@ -5,22 +5,25 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-@Disabled // Ici pour activer programme
-@Autonomous
+@Disabled // Mettre en commentaire pour activer programme
+@TeleOp
+//@Autonomous  //Pour le 2e défi
 public class HelloWorld extends OpMode {
     @Override
     public void init() {
-        telemetry.addData("Hello","Dude");
+        telemetry.addData("Hello","World");
+        // telemetry.addData("Hello","Ton Nom"); //Pour le premier défi
     }
 
     @Override
     public void loop() {
 
     }
+}
 
-    // Single Line Comment
+
+// Single Line Comment
     /*
     1. Change Hello World for Hello Sebastien ok
     2. Run the program in the Autonomous section of the DS ok
      */
-}
