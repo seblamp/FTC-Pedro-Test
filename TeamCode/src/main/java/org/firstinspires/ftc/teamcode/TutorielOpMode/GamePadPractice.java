@@ -17,20 +17,19 @@ public class GamePadPractice extends OpMode {
     public void loop() {
         // runs 50 times per second
         double speedForward = -gamepad1.left_stick_y /2.0;
-        double speedFowardY = -gamepad1.right_stick_y/2.0;
-        double diffXJoysticks = gamepad1.left_stick_x - gamepad1.right_stick_x;
-        double sumTriggers = gamepad1.left_trigger + gamepad1.right_trigger;
+        double diffXJoysticks = gamepad1.left_stick_x - gamepad1.right_stick_x;  //Défi 3
+        double sumTriggers = gamepad1.left_trigger + gamepad1.right_trigger;   //Défi 4
 
-        telemetry.addData("Left X",gamepad1.left_stick_x);
-        telemetry.addData("Left Y", speedForward);
-        telemetry.addData("Right X", gamepad1.right_stick_x);
-        telemetry.addData("Right Y", speedFowardY);
+        telemetry.addData("left X",gamepad1.left_stick_x);
+        telemetry.addData("left Y", speedForward);
+        telemetry.addData("right X", gamepad1.right_stick_x);  //Défi 1
+        telemetry.addData("right Y", gamepad1.right_stick_y);  //Défi 1
 
-        telemetry.addData("Difference left and right X",diffXJoysticks);
-        telemetry.addData("Sum Triggers", sumTriggers);
+        telemetry.addData("Difference left and right X",diffXJoysticks);  //Défi 3
+        telemetry.addData("Sum Triggers", sumTriggers);   //Défi 4
 
         telemetry.addData("A button",gamepad1.a);
-        telemetry.addData("B button", gamepad1.b);
+        telemetry.addData("B button", gamepad1.b);  // Défi 2
 
     }
     /*
