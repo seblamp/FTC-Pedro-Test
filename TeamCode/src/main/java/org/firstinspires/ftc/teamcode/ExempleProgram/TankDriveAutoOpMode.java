@@ -33,11 +33,13 @@ public class TankDriveAutoOpMode extends LinearOpMode { // LinearOpMode permet d
         // On peut changer les valeurs et faire du copier/coller pour modifier le trajet
         // Les commandes sont exécutées dans l'ordre, une manœuvre à la fois
 
-        avancer(70, 0.6);                   // Avance 70 cm à 60 % de power
-        tournerDroite(90, 0.4);             // Tourne à droite 90 degrés à 40 % de power
-        avancer(40, 0.7);                   // Avance 40 cm à 70 % de power
+        avancer(90, 0.6);                   // Avance 70 cm à 60 % de power
+        tournerDroite(90, 0.8);             // Tourne à droite 90 degrés à 40 % de power
+        pause(500);                                 //pause de 500 millisecondes
+        avancer(30, 0.7);                   // Avance 40 cm à 70 % de power
         tournerGauche(90, 0.5);             // Tourne à gauche 90 degrés à 50 % de power
-        reculer(30, 0.8);                   // Recule 30 cm à 80 % de power
+        pause(200);                             //Paude de 200 millisecondes
+        reculer(70, 0.8);                   // Recule 30 cm à 80 % de power
 
 
         drivetrain.drive(0, 0);            // Les moteurs s'arrêtent
@@ -106,6 +108,10 @@ public class TankDriveAutoOpMode extends LinearOpMode { // LinearOpMode permet d
             afficherTelemetrie("TOURNE À GAUCHE");
             idle();
         }
+    }
+
+    private void pause(long milliseconds) {
+        sleep(milliseconds);
     }
 
 

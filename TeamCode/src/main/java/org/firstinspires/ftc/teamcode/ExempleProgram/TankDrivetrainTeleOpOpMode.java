@@ -16,6 +16,7 @@ public class TankDrivetrainTeleOpOpMode extends OpMode {
     public void init() { // Init sur le Driver Hub
         drivetrain.init(hardwareMap);    //On initialise le matériel
         drivetrain.resetDriveEncoders(); //On reset les encodeurs de tous les moteurs
+
     }
 
     @Override
@@ -44,6 +45,7 @@ public class TankDrivetrainTeleOpOpMode extends OpMode {
         telemetry.addData("Left Motor", drivetrain.leftMotorPosition());
         telemetry.addData("Right Motor", drivetrain.rightMotorPosition());
         telemetry.addData("Heading", drivetrain.driveTrainHeading(AngleUnit.DEGREES));
+        telemetry.update();
     }
 
 }

@@ -22,13 +22,13 @@ public class TankDrivetrainExemple {
     // Variables pour les virages avec le IMU
     private double turnTargetHeading;                    // Cible pour le virage
     private double turnPower;                            // Vitesse pendant le virage
-    private static final double TURN_TOLERANCE = 2.0;    // Tolérance en degrés pour terminer le virage
+    private static final double TURN_TOLERANCE = 1.0;    // Tolérance en degrés pour terminer le virage
     private boolean turning = false;                     // Variable pour vérifier si le virage est terminé
 
     public enum TurnDirection {                         // Enum utilisé pour choisir la direction d'un virage
         LEFT, RIGHT}
 
-    //private static final double TURN_KP = 0.02;  //Constante qui permet d'ajuster le power selon l'erreur
+    private static final double TURN_KP = 0.01;  //Constante qui permet d'ajuster le power selon l'erreur
 
 
     public void init(HardwareMap hwMap) {
@@ -38,15 +38,15 @@ public class TankDrivetrainExemple {
         leftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);       //On utilise les encodeurs
         rightMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-        leftMotor.setDirection(DcMotorSimple.Direction.REVERSE);    //Un moteur inverse de l'autre pcq dans le robot, ils tournent inversement de l'autre
-        rightMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+        leftMotor.setDirection(DcMotorSimple.Direction.FORWARD);    //Un moteur inverse de l'autre pcq dans le robot, ils tournent inversement de l'autre
+        rightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
 
         leftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);   //Mode brake pour des mouvements plus précis
         rightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         imu = hwMap.get(IMU.class,"imu");                       //Par défaut le IMU se nomme "imu"
         RevHubOrientationOnRobot RevOrientation = new RevHubOrientationOnRobot(
-                RevHubOrientationOnRobot.LogoFacingDirection.BACKWARD,      //à vérifier
+                RevHubOrientationOnRobot.LogoFacingDirection.LEFT,      //à vérifier
                 RevHubOrientationOnRobot.UsbFacingDirection.UP);            //à vérifier
 
         imu.initialize (new IMU.Parameters(RevOrientation));
@@ -168,24 +168,24 @@ public class TankDrivetrainExemple {
             drive(0, 0);                //Si on est en dedans de la tolérance, les moteurs arrêtent
             turning = false;
         }
-        else {
+        /*else {
             double direction = Math.signum(error);          //Sinon, on prend le signe de l'erreur (+ ou -) et on continue de tourner
             drive(0, direction * turnPower);
-        }
+        }*/
 
-        /*else {
-            double turnCorrection = error * TURN_KP;
-            if (turnCorrection > turnPower) {
+        else {
+            double turnCorrection = error * TURN_KP; // La puissance est proportionnelle à l'erreur angulaire
+            if (turnCorrection > turnPower) { // On limite la puissance à la valeur demandée dans l'autonome
                 turnCorrection = turnPower;
             }
             if (turnCorrection < -turnPower) {
             turnCorrection = -turnPower;
             }
-            drive(0, turnCorrection);
-        }*/
-
+            drive(0, -turnCorrection);   // On tourne en ralentissant à l'approche de la cible
+        }
 
     }
+
     public boolean isTurning() {                //Méthode qui retourne si le robot est en train de tourner
         return turning;
     }
