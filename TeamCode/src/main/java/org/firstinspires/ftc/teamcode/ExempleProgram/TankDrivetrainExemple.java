@@ -67,6 +67,11 @@ public class TankDrivetrainExemple {
         rightMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
+    //méthode pour avoir un bouton pour ralentir le robot pour des contrôles plus précis
+    public void setSpeedMultiplier(double multiplier) {
+        speedMultiplier = multiplier;
+    }
+
     public void drive(double forward, double turn) {   //Méthode qui permet de contrôler une base tank en téléop
         double leftPower = forward + turn;  // formules pour avancer et tourner
         double rightPower = forward - turn;
@@ -79,10 +84,7 @@ public class TankDrivetrainExemple {
         rightMotor.setPower(rightPower * speedMultiplier);  //la multiplication permet de ralentir le robot quand un appui sur un bouton
     }
 
-    //méthode pour avoir un bouton pour ralentir le robot pour des contrôles plus précis
-    public void setSpeedMultiplier(double multiplier) {
-        speedMultiplier = multiplier;
-    }
+
 
     //méthode pour transformer les cm en ticks
     public int cmToTicks(double distanceCm) {
