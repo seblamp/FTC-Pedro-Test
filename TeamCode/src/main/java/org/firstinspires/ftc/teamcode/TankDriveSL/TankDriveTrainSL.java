@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.TankDriveSL;
 
+import static java.lang.Math.PI;
+
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
@@ -12,8 +14,9 @@ public class TankDriveTrainSL {
 
     private DcMotor leftMotor, rightMotor;
     private IMU imu;
-
     private double speedMultiplier = 1.0;
+    private static final double ticksPerRevolution = 636.0;
+    private static final double wheelDiameter = 9.0;
 
     public void init(HardwareMap hwMap) {
         leftMotor = hwMap.get(DcMotor.class, "leftmotor");
@@ -75,5 +78,42 @@ public class TankDriveTrainSL {
         leftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         rightMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
+
+    public void driveAuto (int leftTarget, int rightTarget, double speedAuto){
+        int targetLeft = leftMotor.getCurrentPosition() + leftTarget;
+        int targetRight = rightMotor.getCurrentPosition() + rightTarget;
+
+        leftMotor.setTargetPosition(targetLeft);
+        rightMotor.setTargetPosition(targetRight);
+
+        leftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        rightMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        leftMotor.setPower(Math.abs(speedAuto));
+        rightMotor.setPower(Math.abs(speedAuto));
+    }
+
+    public boolean isDriveBusy(){
+        return leftMotor.isBusy() || rightMotor.isBusy();
+    }
+
+    public int cmToTicks(double distanceCm){
+        double wheelCircumference = PI * wheelDiameter;
+        double rotations = distanceCm / wheelCircumference;
+        return (int) Math.round(rotations*ticksPerRevolution);
+    }
+
+    public void driveDistance(double distanceCm, double speed){
+        int ticks = cmToTicks((distanceCm));
+        driveAuto(ticks,ticks,speed);
+    }
+
+    public double distanceLeftMotor(){
+        return (leftMotor.getCurrentPosition()/ticksPerRevolution)*PI*wheelDiameter;
+    }
+    public double distanceRightMotor(){
+        return (rightMotor.getCurrentPosition()/ticksPerRevolution)*PI*wheelDiameter;
+    }
+
 
 }
