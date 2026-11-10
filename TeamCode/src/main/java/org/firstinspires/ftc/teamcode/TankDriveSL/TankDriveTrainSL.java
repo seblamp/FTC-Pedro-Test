@@ -18,6 +18,19 @@ public class TankDriveTrainSL {
     private static final double ticksPerRevolution = 636.0;
     private static final double wheelDiameter = 9.0;
 
+    private double turnTargetHeading;
+    private  double turnPower;
+
+    private static final double TURN_TOLERANCE = 1.0;
+    private  static final double TURN_KP = 0.01;
+
+    private boolean turning = false;
+
+    public enum TurnDirection{
+        LEFT,RIGHT
+    }
+
+
     public void init(HardwareMap hwMap) {
         leftMotor = hwMap.get(DcMotor.class, "leftmotor");
         rightMotor = hwMap.get(DcMotor.class, "rightmotor");
@@ -69,6 +82,7 @@ public class TankDriveTrainSL {
     }
 
     public void resetDriveEncoders(){
+        turning = false;
         leftMotor.setPower(0);
         rightMotor.setPower(0);
 
@@ -115,5 +129,61 @@ public class TankDriveTrainSL {
         return (rightMotor.getCurrentPosition()/ticksPerRevolution)*PI*wheelDiameter;
     }
 
+    private double notmalizeAngle(double angle){
+        while (angle > 180){
+            angle -= 360;
+        }
+        while (angle < -180){
+            angle += 360;
+        }
+        return angle;
+    }
 
+    public void turnDegrees (TurnDirection direction, double degrees, double power) {
+        leftMotor.setPower(0);
+        rightMotor.setPower(0);
+
+        leftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        double currentHeading = driveTrainHeading(AngleUnit.DEGREES);
+        turnPower = Math.abs(power);
+
+        if (direction == TurnDirection.RIGHT){
+            turnTargetHeading = currentHeading - degrees;
+        } else {
+            turnTargetHeading = currentHeading + degrees;
+        }
+
+        turnTargetHeading = notmalizeAngle((turnTargetHeading));
+        turning = true;
+    }
+
+    public void updateTurn() {
+        if (!turning) {
+            return;
+        }
+
+        double currentHeading = driveTrainHeading(AngleUnit.DEGREES);
+        double error = notmalizeAngle(turnTargetHeading - currentHeading);
+
+        if (Math.abs(error) <= TURN_TOLERANCE) {
+            drive(0,0);
+            turning = false;
+        }else {
+            double turnCorrection = error * TURN_KP;
+            if (turnCorrection > turnPower) {
+                turnCorrection = turnPower;
+            }
+            if (turnCorrection < -turnPower){
+                turnCorrection = -turnPower;
+            }
+
+            drive(0, -turnCorrection);
+        }
+    }
+
+    public boolean isTurning(){
+        return turning;
+    }
 }
