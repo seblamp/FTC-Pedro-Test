@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.mechanisms;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 public class TestBenchMotor {
@@ -11,9 +12,10 @@ public class TestBenchMotor {
 
         motor = hwMap.get(DcMotor.class, "motor"); //en vert "motor" doit être le nom exact de la configuration sur le Driver Hub
         motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER); // ex : va aider si 2 moteurs sur un gearbox doivent tourner ensemble à la même vitesse
-        //motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE); // Brake ou float
-        //motor.setDirection(DcMotorSimple.Direction.FORWARD); //si on a besoin d'inverser le moteur
-        ticksPerRev = 28.0;
+        motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE); // Brake ou float
+        motor.setDirection(DcMotorSimple.Direction.FORWARD); //si on a besoin d'inverser le moteur
+        //ticksPerRev = motor.getMotorType().getTicksPerRev();
+        ticksPerRev = 288.0;
     }
     public void setMotorSpeed (double speed) {
         // accept values from -1.0 to 1.0
@@ -21,6 +23,15 @@ public class TestBenchMotor {
     }
     public double getMotorRevs() {
         return  motor.getCurrentPosition()/ticksPerRev; // normalizing ticks to revolution
+    }
+
+    public void setMotorZeroBehaviour(DcMotor.ZeroPowerBehavior zeroBehaviour) {
+        motor.setZeroPowerBehavior(zeroBehaviour);
+    }
+
+    public DcMotor.ZeroPowerBehavior getMotorZeroBehaviour() {
+        return motor.getZeroPowerBehavior();
+
     }
 
 }

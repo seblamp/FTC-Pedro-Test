@@ -4,7 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-@Disabled // Mettre en commentaire pour activer programme
+//@Disabled // Mettre en commentaire pour activer programme
 @TeleOp
 public class VariablePractice extends OpMode {
     @Override
