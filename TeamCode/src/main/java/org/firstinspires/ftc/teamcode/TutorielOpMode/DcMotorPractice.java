@@ -14,7 +14,11 @@ import org.firstinspires.ftc.teamcode.mechanisms.TestBenchTouchAndMotor;
 public class DcMotorPractice extends OpMode {
 
    //TestBenchTouchAndMotor bench = new TestBenchTouchAndMotor();
-   TestBenchMotor bench = new TestBenchMotor();
+
+   //TestBenchMotor bench = new TestBenchMotor();
+
+    TestBenchMotor bench = new TestBenchMotor();
+
     @Override
     public void init() {
         bench.init(hardwareMap);
