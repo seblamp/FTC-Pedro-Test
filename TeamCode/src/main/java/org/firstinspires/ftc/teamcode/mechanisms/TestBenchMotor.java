@@ -14,6 +14,8 @@ public class TestBenchMotor {
         motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER); // ex : va aider si 2 moteurs sur un gearbox doivent tourner ensemble à la même vitesse
         motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE); // Brake ou float
         motor.setDirection(DcMotorSimple.Direction.FORWARD); //si on a besoin d'inverser le moteur
+
+        //ticksPerRev = motor.getMotorType().getTicksPerRev();
         ticksPerRev = 288.0;
     }
     public void setMotorSpeed (double speed) {

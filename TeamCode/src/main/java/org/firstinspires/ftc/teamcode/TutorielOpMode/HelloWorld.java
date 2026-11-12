@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-@Disabled // Mettre en commentaire pour activer programme
+//@Disabled // Mettre en commentaire pour activer programme
 @TeleOp
 //@Autonomous  //Pour le 2e défi
 public class HelloWorld extends OpMode {
