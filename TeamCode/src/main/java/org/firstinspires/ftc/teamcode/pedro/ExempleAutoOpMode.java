@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.pedro;
 
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.pedropathing.follower.Follower;
 import org.firstinspires.ftc.teamcode.pedro.Constants;
@@ -11,15 +12,18 @@ import com.pedropathing.ivy.Scheduler;
 import static com.pedropathing.ivy.Scheduler.schedule;
 import static com.pedropathing.ivy.pedro.PedroCommands.follow;
 import com.pedropathing.ivy.Command;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+
 import static com.pedropathing.ivy.groups.Groups.sequential;
 
+@Autonomous
 public class ExempleAutoOpMode extends OpMode {
     private Follower follower; // Add this
 
     private final PoseFactory poseFactory = PoseFactory.degrees();
 
-    private final Pose startPose = poseFactory.of(36, 8, 0);
-    private final Pose scorePose = poseFactory.of(60, 30, 90);
+    private final Pose startPose = poseFactory.of(24, 8, 90);
+    private final Pose scorePose = poseFactory.of(40, 30, 90);
     private final Pose parkPose = poseFactory.of(9, 108, 90);
     private final PoseFactory p = PoseFactory.degrees();
 
