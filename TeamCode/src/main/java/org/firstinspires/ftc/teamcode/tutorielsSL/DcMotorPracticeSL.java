@@ -32,5 +32,5 @@ public class DcMotorPracticeSL extends OpMode {
         telemetry.addData("Motor Revolutions",bench.getMotorRevs());
         telemetry.addData("Motor Zero Behaviour", bench.getMotorZeroPowerBehaviour());
     }
-    
+
 }
