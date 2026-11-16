@@ -1,13 +1,12 @@
-package org.firstinspires.ftc.teamcode.tutorielsSL;
+package org.firstinspires.ftc.teamcode.ExempleProgram;
 
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 //@Disabled
 @TeleOp
 public class DcMotorAndServoOpMode extends OpMode {
-    DcMotorAndServoClassSL test = new DcMotorAndServoClassSL();
+    DcMotorAndServoClass test = new DcMotorAndServoClass();
 
     @Override
     public void init() {
@@ -16,8 +15,17 @@ public class DcMotorAndServoOpMode extends OpMode {
 
     @Override
     public void loop() {
-        double motorSpeed = gamepad1.left_stick_y;
-        test.setMotorSpeed(motorSpeed);
+
+        if (gamepad1.left_bumper){
+            test.setMotorSpeed(0.5);
+        }
+        else if (gamepad1.right_bumper) {
+            test.setMotorSpeed(-0.5);
+        }
+        else {
+            double motorSpeed = gamepad1.left_stick_y;
+            test.setMotorSpeed(motorSpeed);
+        }
 
         if (gamepad1.a){
             test.setServoPos(0.5);
@@ -45,5 +53,4 @@ public class DcMotorAndServoOpMode extends OpMode {
         telemetry.update();
 
     }
-
 }
