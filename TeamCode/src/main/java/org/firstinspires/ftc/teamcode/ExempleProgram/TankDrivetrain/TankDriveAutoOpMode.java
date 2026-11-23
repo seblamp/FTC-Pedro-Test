@@ -2,11 +2,12 @@
 package org.firstinspires.ftc.teamcode.ExempleProgram.TankDrivetrain;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 
-
+@Disabled
 @Autonomous(name = "Tank Drive Auto")
 public class TankDriveAutoOpMode extends LinearOpMode { // LinearOpMode permet de faire des manœuvres dans l'ordre
 

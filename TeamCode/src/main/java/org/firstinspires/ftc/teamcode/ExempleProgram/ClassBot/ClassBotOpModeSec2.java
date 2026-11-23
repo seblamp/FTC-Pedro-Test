@@ -1,9 +1,12 @@
 package org.firstinspires.ftc.teamcode.ExempleProgram.ClassBot;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
+import java.lang.annotation.Documented;
 
+@Disabled
 @TeleOp(name = "ClassBotSec2")
 public class ClassBotOpModeSec2 extends OpMode {
 

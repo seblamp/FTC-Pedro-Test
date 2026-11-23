@@ -17,10 +17,11 @@
 
 package org.firstinspires.ftc.teamcode.ExempleProgram.ClassBot;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-
+@Disabled
 @TeleOp(name = "ClassBot Complet")
 public class ClassBotOpModeComplet extends OpMode {
 

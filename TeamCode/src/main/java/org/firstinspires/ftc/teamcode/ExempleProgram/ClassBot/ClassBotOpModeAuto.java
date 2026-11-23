@@ -1,8 +1,10 @@
 package org.firstinspires.ftc.teamcode.ExempleProgram.ClassBot;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
+@Disabled
 @Autonomous(name ="TestAutoClassBot")
 public class ClassBotOpModeAuto extends OpMode {
     ClassBotDrive drivetrain = new ClassBotDrive();

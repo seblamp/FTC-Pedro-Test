@@ -1,9 +1,10 @@
 package org.firstinspires.ftc.teamcode.ExempleProgram;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-//@Disabled
+@Disabled
 @TeleOp
 public class DcMotorAndServoOpMode extends OpMode {
     DcMotorAndServoClass test = new DcMotorAndServoClass();

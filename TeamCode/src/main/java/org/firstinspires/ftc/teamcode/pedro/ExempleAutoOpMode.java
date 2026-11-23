@@ -13,6 +13,7 @@ import static com.pedropathing.ivy.Scheduler.schedule;
 import static com.pedropathing.ivy.pedro.PedroCommands.follow;
 import com.pedropathing.ivy.Command;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import static com.pedropathing.ivy.commands.Commands.waitMs;
 
 import static com.pedropathing.ivy.groups.Groups.sequential;
 
@@ -23,7 +24,9 @@ public class ExempleAutoOpMode extends OpMode {
     private final PoseFactory poseFactory = PoseFactory.degrees();
 
     private final Pose startPose = poseFactory.of(24, 8, 90);
-    private final Pose scorePose = poseFactory.of(40, 30, 90);
+    private final Pose scorePose = poseFactory.of(60, 38, 90);
+    // other poses...
+    private final Pose controlPose = poseFactory.of(10, 35, 90);
     private final Pose parkPose = poseFactory.of(9, 108, 90);
     private final PoseFactory p = PoseFactory.degrees();
 
@@ -33,12 +36,13 @@ public class ExempleAutoOpMode extends OpMode {
     }
 
     private Path park(){
-        return line(scorePose, parkPose).linear(scorePose, parkPose);
+        return curve(scorePose, controlPose, parkPose).linear(scorePose, parkPose);
     }
 
     private Command autoRoutine() {
         return sequential(
                 follow(follower, startToScore()),
+                waitMs(2500),
                 // Add mechanism commands here.
                 follow(follower, park())
         );

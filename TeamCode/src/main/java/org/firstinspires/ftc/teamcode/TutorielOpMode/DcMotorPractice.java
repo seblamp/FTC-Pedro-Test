@@ -9,7 +9,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import org.firstinspires.ftc.teamcode.mechanisms.TestBenchMotor;
 import org.firstinspires.ftc.teamcode.mechanisms.TestBenchTouchAndMotor;
 
-
+@Disabled
 @TeleOp
 public class DcMotorPractice extends OpMode {
 
